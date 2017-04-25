@@ -5,12 +5,6 @@
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
     <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
     <!--<script src='js/main.js'></script>-->
-    <script type="text/javascript">
-      //want to display this result somewhere under/next to forms?
-      var someVar= '{{ templateData }}';
-      document.getElementById("validity").innerHTML = someVar;
-      console.log(someVar);
-    </script>
   </head>
   <body>
     <h1>Is Your Name Valid?</h1>
@@ -40,6 +34,101 @@
 
     function myFunction() {
       //add functionality hereee
+      
+      var firstname = document.getElementsByName("firstname")[0].value;
+      var lastname = document.getElementsByName("lastname")[0].value;
+      //var firstnamecpy = document.getElementsByName("firstname")[0].value;
+      //var lastnamecpy = document.getElementsByName("lastname")[0].value;
+      var arr = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","-","_"," "];
+      function IsValidContactName(){
+        if(firstname.length > 1 || lastname.length > 1){
+            return false
+        }
+        for(var i = 0; i < firstname.length; i++){
+            var valid = false;
+            for(var j=0; j<arr.length; j++){
+                if(firstname[i].toLowerCase() === arr[j].toLowerCase()){
+                    valid = true;
+                }
+                if(valid === true){
+                    //break;
+                }
+            }
+            if(valid === false){
+                return false;
+            }
+        }
+        for(var k = 0; k < lastname.length; k++){
+            var valid = false;
+            for(var l=0; l<arr.length; l++){
+                if(lastname[k].toLowerCase() === arr[l].toLowerCase()){
+                    valid = true;
+                }
+                if(valid === true){
+                    //break;
+                }
+            }
+            if(valid === false){
+                return false;
+            }
+        }
+        return true;
+      }
+       function FormatContactName(){
+        if(IsValidContactName() === false){
+            for(var i = 0; i < firstname.length; i++){
+                var valid = false;
+                for(var j = 0; j < arr.length; j++){
+                    if(firstname[i].toLowerCase() === arr[j].toLowerCase()){
+                    valid = true;
+                    }
+                    if(valid === true){
+                    //break;
+                    }
+                }
+                if(valid === false){
+                    firstname = firstname.replace(firstname[i], "")
+                }
+            }
+            for(var i = 0; i < lastname.length; i++){
+                var valid = false;
+                for(var j = 0; j < arr.length; j++){
+                    if(lastname[i].toLowerCase() === arr[j].toLowerCase()){
+                    valid = true;
+                    }
+                    if(valid === true){
+                    //break;
+                    }
+                }
+                if(valid === false){
+                    lastname = lastname.replace(lastname[i], "")
+                }
+            }
+            return (firstname + " " + lastname);
+        }
+        else{
+            return (firstname + " " + lastname);
+        }
+      }
+      var isValidContact = IsValidContactName();
+      if(isValidContact){
+        //PRINT VALUE HERE replace YOU CLICKED ME!
+        //instead of these print statements can use FormatContactName instead
+        document.getElementById("validity").innerHTML = firstname + " " + lastname + " is valid";
+      }
+      else{
+        var newname = FormatContactName();
+        document.getElementById("validity").innerHTML = "Name is not valid and so has been formatted to " + newname;
+    }
+      
+    }
+</script>
+<!-- if you want to do buttons the regular python stuff -->
+<!-- <script>
+    if using this comment out the javascript code above 
+    document.getElementById("but").onclick = function() {myFunction()};
+    function myFunction() {
+      //add functionality hereee
       var isValidContact = true;
       var firstname = document.getElementsByName("firstname")[0].value;
       var lastname = document.getElementsByName("lastname")[0].value;
@@ -52,5 +141,5 @@
         document.getElementById("validity").innerHTML = firstname + " " + lastname + " is not valid";
       }
     }
-</script>
+</script>-->
 </html>
